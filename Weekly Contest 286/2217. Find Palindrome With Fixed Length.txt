@@ -1,0 +1,39 @@
+Problem Link:-https://leetcode.com/problems/find-palindrome-with-fixed-length/
+
+
+Intution
+
+//Only the first (intLength + 1) / 2 characters matter. The remaining characters are just a reflection.
+//Say intLength == 7, so we consider only 4 characters. The minimum number is 1000 and maximum - 9999.
+//Therefore, we can have 9999 - 1000 + 1 == 9000 palindromes. To find out the palindrome, we add a q - 1 to the minimum number, reverse, and concatenate.
+//For example, for query 8765, the base number is 1000 + 8765 - 1 == 9764. Concatenating it with 679, we get 9764679 as the result.
+
+
+Code:-
+class Solution {
+public:
+    vector<long long> kthPalindrome(vector<int>& queries, int intLength) {
+        std::vector<long long> ans;
+        for (auto x : queries) {
+            int k = (intLength + 1) / 2;
+            int p = 1;
+            for (int i = 0; i < k - 1; i++) {
+                p *= 10;
+            }
+            if (x > 9 * p) {
+                ans.push_back(-1);
+            } else {
+                long long res = p + x - 1;
+                auto s = std::to_string(res);
+                s.resize(intLength - k);
+                std::reverse(s.begin(), s.end());
+                for (auto c : s) {
+                    res = 10 * res + c - '0';
+                }
+                ans.push_back(res);
+            }
+        }
+        return ans;
+    }
+};
+Time Complexity :-O(querysize*intLength )

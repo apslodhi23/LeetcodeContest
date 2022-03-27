@@ -1,0 +1,47 @@
+Problem Link:- https://leetcode.com/problems/minimum-deletions-to-make-array-beautiful/ [M]
+
+*My code During live contest / optimised code *
+
+class Solution {
+public:
+    int minDeletion(vector<int>& nums) {
+        int ans=0;
+        int i=0;
+        int n=nums.size();
+	
+	//My intution was to remove all the right adjacent elements of even index which 
+	//are same as the value of that index. And Even after doing the same, 
+	//if the length of string has became odd then I decreasad the size of string by 1.
+	
+        while(i<n){
+		// checking weather the next number is eual to current or not
+		// if it is not same we will increamnt i to i+2 so that i iterate only on even index
+		// if it is same we will remove all the number that are right adjecent to that number and ar equal
+		
+            if(i<n-1 and nums[i]!=nums[i+1]){
+                i+=2;
+            }else{
+                int j=i+1;
+                while(j<n and nums[i]==nums[j]){
+                    j++;
+                }
+                j--;
+		// the removed elements will be j-i
+                ans+=j-i;
+
+                j++;
+                i=j;
+                i++;
+            }
+        }
+// if the string after removing is of odd length we will reomove one more element from the string
+        if((n-ans)%2==1){
+            ans++;
+        }
+        return ans;
+    }
+};
+
+Time Complexity :- o(n);
+
+

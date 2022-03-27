@@ -1,0 +1,58 @@
+Problem Link:- https://leetcode.com/problems/find-the-difference-of-two-arrays/
+
+*My code During live contest  / optimesd code *
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        vector<vector<int>>ans(2);
+        unordered_map<int,int>m;
+	// storing all the elements of nums1 in map 
+        for(auto x:nums1){
+            m[x]++;
+        }
+
+	//removing all the elements if they occur
+	// in nums2 from map
+        for(auto x:nums2){
+            if(m.find(x)!=m.end()){
+                m.erase(x);
+            }
+        }
+
+	// storing all the distinct value of nums1 
+	//that are not present in num2 in answer vector
+        for(auto x:m){
+            ans[0].push_back(x.first);
+        }
+
+        m.clear();
+
+	//storing all the elements of nums2 in map 
+        for(auto x:nums2){
+            m[x]++;
+        }
+
+	//removing all the elements if they occur
+	// in nums1 from map
+        for(auto x:nums1){
+            if(m.find(x)!=m.end()){
+                m.erase(x);
+            }
+        }
+
+
+	// storing all the distinct value of nums1 
+	//that are not present in num1 in answer vector
+        for(auto x:m){
+            ans[1].push_back(x.first);
+        }
+        
+	// all the values
+        return ans;
+    }
+};
+
+Time Complexity :- o(max(n,m)) for itration * (log(n)) for eraseing element from map;
+
+
