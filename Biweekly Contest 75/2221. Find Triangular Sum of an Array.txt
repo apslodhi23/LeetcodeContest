@@ -1,0 +1,32 @@
+Problem Link:- https://leetcode.com/contest/biweekly-contest-75/problems/find-triangular-sum-of-an-array/  [Medium]]
+
+
+This question is a vartaion of Pascal trianlge.
+
+
+solution:-
+
+class Solution {
+public:
+    int triangularSum(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>>v;
+        v.push_back(nums);
+        while(n!=1){
+            vector<int>vv;
+            int i=v.size()-1;
+            int j=0;
+            while(j<n-1){
+                vv.push_back((v[i][j]+v[i][j+1])%10);
+                j++;
+            }
+            v.push_back(vv);
+            n--;
+        }
+        return v[v.size()-1][0];
+    }
+
+};
+
+time Com:- O(n*n);
+space comp:- O(n*n);
