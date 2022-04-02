@@ -1,0 +1,30 @@
+Problem Link:-https://leetcode.com/contest/biweekly-contest-75/problems/minimum-bit-flips-to-convert-number/  [E]
+
+
+Use the propert of Xor i.e XOR of two number will have set bits only at those places where A differs from B
+
+
+solution:-
+class Solution {
+public:
+        int fun2(int n)
+        {
+            int count = 0;
+            while (n > 0)
+            {
+                count++;
+                n &= (n-1);
+            }
+            return count;
+        }
+
+        int fun1(int a, int b)
+        {
+            return fun2(a^b);
+        }
+    int minBitFlips(int start, int goal) {
+       
+        return fun1(start,goal);
+    }
+
+};
