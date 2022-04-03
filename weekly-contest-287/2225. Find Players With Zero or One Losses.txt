@@ -1,0 +1,33 @@
+Problme Link:-   https://leetcode.com/contest/weekly-contest-287/problems/find-players-with-zero-or-one-losses/  [Medium]
+
+
+Used two map one will store the winner player and other will store the looser players. 
+If one player is not presnt in second lossing map that means it never lost the game.
+
+soltuion:-
+
+class Solution {
+public:
+    vector<vector<int>> findWinners(vector<vector<int>>& arr) {
+        map<int,int>m1,m2;
+        for(auto x:arr){
+            m1[x[0]]++;
+            m2[x[1]]++;
+        }
+        vector<int>v1,v2;
+        for(auto x:m1){
+            if(m2.find(x.first)==m2.end()){
+                v1.push_back(x.first);
+            }
+        }
+        for(auto x:m2){
+            if(x.second==1){
+                v2.push_back(x.first);
+            }
+        }
+        return {v1,v2};
+    }
+};
+
+Time compl:- o(N);
+Space compl:- o(n+n) ==o(n);

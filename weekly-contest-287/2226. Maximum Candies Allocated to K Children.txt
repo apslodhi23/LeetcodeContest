@@ -1,0 +1,53 @@
+Problem Link :- https://leetcode.com/contest/weekly-contest-287/problems/maximum-candies-allocated-to-k-children/  [Medium]
+
+Used binary search for getting the maximum number of candies with some base condtion in it.
+
+soltuion:-
+
+class Solution {
+public:
+	// function if we can disribute m candeies to each student 
+    bool check(int m,vector<int>&arr,long long  k){
+
+        long long kk=0;
+        for(auto x:arr){
+            kk+=x/m;
+        }
+        return kk>=k;
+    }
+
+    int maximumCandies(vector<int>& arr, long long k) {
+        long long sum=0;
+        int mn;
+        for(auto x:arr){
+            sum+=x;
+        }
+	// is sum is small then we cannot distribute candies
+        if(sum<k){
+            return 0;
+        } 
+	// if sum is euql to k then we can distribute only 1 candies
+        if(sum==k){
+            return 1;
+        }
+	// our answer would lie in 0 to sum/k so will we do binary search over it and get max answer
+
+        mn=sum/k;       
+        int i=1,j=mn;
+        int ans=0;
+        while(i<=j){
+            int m=(i+j)/2;
+            if(check(m,arr,k)){
+                ans=max(ans,m);   
+                i=m+1;    // for finding greater answer
+            }else{
+                j=m-1;
+            }
+        }
+        return ans;
+        
+    }
+};
+
+Time compl:- o(N*long(sum/k));
+Space compl:- o(1);

@@ -1,0 +1,26 @@
+Problem Link:- https://leetcode.com/contest/weekly-contest-287/problems/encrypt-and-decrypt-strings/  [Hard]
+
+
+We could store the number of dictionary words for each encrypted representation in hash map m, 
+and return this count in the decrypt function.
+
+solution:-
+
+class Encrypter {
+    unordered_map<char, string> ch2s;    
+    unordered_map<string, int> m;
+public:
+    Encrypter(vector<char>& keys, vector<string>& values, vector<string>& dictionary) {
+        for (int i = 0; i < keys.size(); ++i)
+            ch2s[keys[i]] = values[i];
+        for (auto &s : dictionary)
+            ++m[encrypt(s)];
+    }
+    string encrypt(string word1) {
+        string res;
+        for (char ch : word1)
+            res += ch2s[ch];
+        return res;
+    }
+    int decrypt(string word2) { return m[word2]; }
+};
