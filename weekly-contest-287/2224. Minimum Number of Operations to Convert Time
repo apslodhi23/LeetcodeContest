@@ -1,0 +1,44 @@
+Problem link:-  https://leetcode.com/contest/weekly-contest-287/problems/minimum-number-of-operations-to-convert-time/ [Easy]
+
+
+
+
+soltuion:-
+
+class Solution {
+public:
+    int convertTime(string c, string cs) {
+	  // if botth are same return 0;
+        if(c==cs){
+            return 0;
+        }
+        int hh1=(c[0]-'0')*10+(c[1]-'0');   	// start time hour
+        int mm1=(c[3]-'0')*10+(c[4]-'0');   	// start time minutes
+        int hh2=(cs[0]-'0')*10+(cs[1]-'0');	// end time hour
+        int mm2=(cs[3]-'0')*10+(cs[4]-'0');     // end time minutes
+        int ans=0;
+        int fin_ans=abs(hh2-hh1);        // as end time is always greater then start
+        if(mm1<=mm2){
+            ans=mm2-mm1;
+        }else{
+            ans=(60-mm1)+mm2;
+            fin_ans--;
+            
+        }
+	// no. of 15 we can take
+        fin_ans+=ans/15;
+        ans%=15;
+
+	//no. of 5 we can take
+        fin_ans+=ans/5;
+        ans%=5;
+
+	// no. of 1 we can take
+        fin_ans+=ans;
+
+        return fin_ans;
+        
+    }
+};
+Time compl:- o(1);
+Space compl:- o(1);
