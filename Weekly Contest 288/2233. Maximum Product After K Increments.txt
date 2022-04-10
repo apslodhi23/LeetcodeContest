@@ -1,0 +1,35 @@
+Problem link:- https://leetcode.com/contest/weekly-contest-288/problems/maximum-product-after-k-increments/
+
+Product of the array will be maximum when the smallest number in the array is maximum.
+We use priority queue to find the smallest element in every iteration and increase it by 1.
+
+Insert all elements into min heap.
+Run a loop K times and find the smallest element and increment it by 1.
+Pop the elements and find the product
+
+solution:-
+
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums, int k) {
+        priority_queue<long long ,vector<long long>,greater<long long>>pq;
+        for(auto x:nums){
+            pq.push(x);
+        }
+        long long ans=1;
+        while(k--){
+            long long t=pq.top();
+            pq.pop();
+            t++;
+            pq.push(t);
+        }
+        int mod=1e9+7;
+        while(pq.empty()==false){
+            ans*=pq.top();
+            ans=ans%mod;
+            pq.pop();
+        }
+        return ans;
+        
+    }
+};
