@@ -1,0 +1,56 @@
+Problem Link:- https://leetcode.com/contest/biweekly-contest-76/problems/design-an-atm-machine/  [MEDIUM]
+
+
+It was an implementation question in which for depositing, 
+I added the notes in the available notes array and for withdrawal,
+Checked whether we can withdraw the amount using largest denomination. 
+For this I have subtracted the largest donomination (which is smaller or equal to amount) 
+from the amount and repeated this process util the amount become 0 or there is no denomination 
+less than or equal to amount the and atlast if the amount become 0 the returned the vector of withdrawing 
+note else return -1;
+
+SOLUTION:-
+
+
+
+class ATM {
+public:
+    long long  no[5]={0};
+    long long amo[5]={20,50,100,200,500};
+    ATM() {
+        
+    }
+    void deposit(vector<int> arr) {
+      for(int i=0;i<5;i++){
+          no[i]+=arr[i];
+      }
+    }
+    
+    vector<int> withdraw(int am) {
+        vector<int >ans(5,0);
+        vector<long long>ck(5);
+        for(int i=0;i<5;i++){
+            ck[i]=no[i];
+ 
+        }
+            for(int i=4;i>=0;i--){
+                if(am<amo[i]){
+                    continue;
+                }else{
+                    long long k=no[i];
+                    long long c=am/amo[i];
+                    ans[i]=min(c,k);
+                    no[i]-=min(c,k);
+                    am-=(min(c,k)*amo[i]);
+                }
+            }
+        if(am!=0){
+            for(int i=0;i<5;i++){
+            no[i]=ck[i];
+        }
+            return {-1};
+        }
+        return ans;
+        // }
+    }
+};

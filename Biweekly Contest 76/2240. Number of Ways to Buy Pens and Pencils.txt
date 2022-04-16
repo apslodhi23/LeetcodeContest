@@ -1,0 +1,29 @@
+Problem Link :- https://leetcode.com/contest/biweekly-contest-76/problems/number-of-ways-to-buy-pens-and-pencils/  [MEDIUM]
+
+Iterated from one pen to maximum pen that can be purchased. 
+And for each value of pen checked all the possibilities of pencil 
+that can be purchased and returned the answer.
+
+
+SOLUTION:-
+
+
+class Solution {
+public:
+    long long waysToBuyPensPencils(int total, int cost1, int cost2) {
+        long long ans=0;
+        int i=0;
+        while(true){
+            if(i*cost1>total){
+                return ans;
+            }
+            int k=total-(i*cost1);
+            int c=k/cost2;
+            ans+=(c+1);
+            i++;
+        }
+        return ans;
+    }
+};
+TIME:- O(TOTAL/COST1);
+SPACE:- O(1);

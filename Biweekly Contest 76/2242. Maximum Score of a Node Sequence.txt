@@ -1,0 +1,45 @@
+Problem Link:- https://leetcode.com/contest/biweekly-contest-76/problems/maximum-score-of-a-node-sequence/ [HARD]
+
+
+GOT TLE FOR THIS SOLTUION
+
+SOLUTION:-
+
+class Solution {
+public:
+    map<pair<int,int>,int>dp;
+    int ans=-1;
+    int fun(int i,int c,int s,vector<bool>vis,vector<int>adj[],vector<int>& sr){
+        if(c==1){
+            return s+sr[i];
+        }
+        if(dp.find({i,c})!=dp.end()){
+            return dp[{i,c}];
+        }
+        if(vis[i]==true){
+            return -1;
+        }
+        vis[i]=true;
+        int p=-1;
+        for(auto x:adj[i]){
+            if(vis[x]==false){
+                p=max(p,fun(x,c-1,s+sr[i],vis,adj,sr));
+            }
+        }
+        return dp[{i,c}]=p;
+    }
+    int maximumScore(vector<int>& sr, vector<vector<int>>& ed) {
+        dp.clear();
+        int n=sr.size();
+        vector<int>adj[n];
+        for(auto x:ed){
+            adj[x[0]].push_back(x[1]);
+            adj[x[1]].push_back(x[0]);
+        }
+        for(int i=0;i<n;i++){
+            vector<bool>vis(n,false);
+            ans=max(ans,fun(i,4,0,vis,adj,sr));
+        }
+        return ans;
+    }
+};
