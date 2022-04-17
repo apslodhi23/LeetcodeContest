@@ -1,0 +1,34 @@
+Problem Link:-https://leetcode.com/contest/weekly-contest-289/problems/calculate-digit-sum-of-a-string/ [easy]
+
+Divided the string into groups of k size and the size of the last group can be smaller than k. 
+Then replaced a group with sum of the numbers in that group, repeated this process until s.length() < k.
+
+
+
+solution:-
+class Solution {
+public:
+    string digitSum(string s, int k) {
+        int n=s.length();
+        if(n<=k){
+            return s;
+        }
+        while(n>k){
+            int i=0;
+            string ss="";
+            int an=0;
+            while(i<n){
+                int c=k;
+                int an=0;
+                while(i<n and c--){
+                    an+=s[i]-'0';
+                    i++;
+                }
+                ss+=to_string(an);
+            }
+            s=ss;
+            n=s.length();
+        }
+        return s;
+    }
+};
