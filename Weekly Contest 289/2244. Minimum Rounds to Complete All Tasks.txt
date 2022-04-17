@@ -1,0 +1,44 @@
+Problem Link:- https://leetcode.com/contest/weekly-contest-289/problems/minimum-rounds-to-complete-all-tasks/   [MEDIUM]
+
+
+First I stored the count of all the numbers and iterated over the count:-
+I. If the count is less than 2 then returned -1.
+II. If the count is multi or 3 then added count/3 in answer.
+III. If the count devided by 3 gives 2 as remainder then added count/3 + 1 in answer.
+IV. If the count devided by 3 gives 1 as remainder then added (count/3)-1 + 2 in answer.
+if val%3==0 .i.e ans=value/3;
+if val%3==2 .i.e ans=val/3 + ans+=val/2;
+if val%3==1 .i.e ans=val/3 -1 , ans+=2;
+for val=4 we can divide this in 2 + 2 only.
+for val=5 we can dvide it in 3+2
+for val =6 we can divide it in 3+3 .
+
+solution:-
+class Solution {
+public:
+    int minimumRounds(vector<int>& tasks) {
+        unordered_map<int,int>m;
+        for(auto x:tasks){
+            m[x]++;
+        }
+        int ans=0;
+        for(auto x:m){
+            if(x.second<2){
+                return -1;
+            }
+            else{
+                int k=x.second;
+                if(k%3==0){
+                    ans+=(k/3);
+                }else if(k%3==1){
+                    ans+=(k/3)-1;
+                    ans+=2;
+                }else{
+                    ans+=(k/3);
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+};
